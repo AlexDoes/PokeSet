@@ -1,0 +1,31 @@
+logging:
+  level:
+    com.group.pokeset: DEBUG
+    org.springframework.data.mongodb: DEBUG
+    org.mongodb.driver: DEBUG
+
+spring:
+  data:
+    mongodb:
+      uri: ${MONGO_URI}
+      auto-index-creation: true
+
+  security:
+    oauth2:
+      client:
+        registration:
+          google:
+            client-id: ${GOOGLE_CLIENT_ID:default}
+            client-secret: ${GOOGLE_CLIENT_SECRET:default}
+            redirect-uri: "{baseUrl}/oauth2/callback/{registrationId}"
+            scope:
+              - email
+              - profile
+
+app:
+  jwt:
+    secret: ${JWT_SECRET}
+    expiration: 86400000 # 24 hours in milliseconds
+
+server:
+  port: 8080

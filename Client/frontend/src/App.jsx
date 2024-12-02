@@ -1,49 +1,71 @@
-import { useEffect, useState } from "react";
-import reactLogo from "./assets/react.svg";
-import viteLogo from "/vite.svg";
-import "./App.css";
+import MainLayout from "./layouts/MainLayout";
+import React, { useEffect } from "react";
+import { ThemeProvider } from "./components/ThemeProvider";
+import {
+  BrowserRouter as Router,
+  Routes,
+  Route,
+  Navigate,
+} from "react-router-dom";
+import { AuthProvider, useAuth } from "./contexts/AuthContext";
+import { Login } from "./components/Login";
+import { Register } from "./components/Register";
+import { Dashboard } from "./components/Dashboard";
+import CardsList from "./components/CardsList";
+import { Home } from "./components/Home";
+import CardDirectory from "./components/CardDirectory";
+import CardDetail from "./components/CardDetail";
+import { GetAllCardsSimple } from "./components/GetAllCardsSimple";
+import ErrorPage from "./components/ErrorPage";
 
-function App() {
-  const [cards, setCards] = useState([]);
+const PrivateRoute = ({ children }) => {
+  const { user, token } = useAuth();
+  return token && user ? children : <Navigate to="/login" />;
+};
+
+const AppContent = () => {
+  const { getCurrentUser, token, user } = useAuth();
+
   useEffect(() => {
-    fetch("https://api.pokemontcg.io/v2/cards", {
-      method: "GET",
-    })
-      .then((response) => response.json())
-      .then((data) => {
-        setCards(data.data);
-      })
-      .catch((error) => console.error(error));
-  }, []);
+    if (token && !user) {
+      getCurrentUser();
+    }
+  }, [token, user]);
 
   return (
-    <>
-      <img
-        src="https://www.pokemon-zone.com/assets/uploads/2024/09/promo-a-14-lapras.webp"
-        className="App-logo"
-        alt="logo"
-      />
-      <img
-        src="https://static.dotgg.gg/pokepocket/card/A1-001.webp"
-        className="App-logo"
-        alt="logo"
-      />
-      <div className="flex flex-wrap w-full justify-center">
-        {cards.length > 0 ? (
-          cards.map((card) => (
-            <div className="border-2 border-red-300">
-              <div key={card.id}>
-                <p>{card.name}</p>
-                <img src={card?.images?.small} alt={card?.name} />
-              </div>
-            </div>
-          ))
-        ) : (
-          <h1>Loading...</h1>
-        )}
-      </div>
-    </>
+    <ThemeProvider defaultTheme="dark" storageKey="vite-ui-theme">
+      <MainLayout>
+        <Routes>
+          <Route path="/login" element={<Login />} />
+          <Route path="/register" element={<Register />} />
+          <Route
+            path="/dashboard"
+            element={
+              <PrivateRoute>
+                <Dashboard />
+              </PrivateRoute>
+            }
+          />
+          <Route path="/cards" element={<CardsList />} />
+          <Route path="/" element={<Home />} />
+          <Route path="/cardslist" element={<CardDirectory />} />
+          <Route path="/cards/:id" element={<CardDetail />} />
+          <Route path="/simple" element={<GetAllCardsSimple />} />
+          <Route path="*" element={<ErrorPage />} />
+        </Routes>
+      </MainLayout>
+    </ThemeProvider>
   );
-}
+};
+
+const App = () => {
+  return (
+    <AuthProvider>
+      <Router>
+        <AppContent />
+      </Router>
+    </AuthProvider>
+  );
+};
 
 export default App;
