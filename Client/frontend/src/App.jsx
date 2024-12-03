@@ -17,6 +17,7 @@ import CardDirectory from "./components/CardDirectory";
 import CardDetail from "./components/CardDetail";
 import { GetAllCardsSimple } from "./components/GetAllCardsSimple";
 import ErrorPage from "./components/ErrorPage";
+import About from "./components/About";
 
 const PrivateRoute = ({ children }) => {
   const { user, token } = useAuth();
@@ -36,21 +37,11 @@ const AppContent = () => {
     <ThemeProvider defaultTheme="dark" storageKey="vite-ui-theme">
       <MainLayout>
         <Routes>
-          <Route path="/login" element={<Login />} />
-          <Route path="/register" element={<Register />} />
-          <Route
-            path="/dashboard"
-            element={
-              <PrivateRoute>
-                <Dashboard />
-              </PrivateRoute>
-            }
-          />
           <Route path="/cards" element={<CardsList />} />
           <Route path="/" element={<Home />} />
           <Route path="/cardslist" element={<CardDirectory />} />
           <Route path="/cards/:id" element={<CardDetail />} />
-          <Route path="/simple" element={<GetAllCardsSimple />} />
+          <Route path="/about" element={<About />} />
           <Route path="*" element={<ErrorPage />} />
         </Routes>
       </MainLayout>
@@ -60,11 +51,20 @@ const AppContent = () => {
 
 const App = () => {
   return (
-    <AuthProvider>
-      <Router>
-        <AppContent />
-      </Router>
-    </AuthProvider>
+    <Router>
+      <ThemeProvider defaultTheme="dark" storageKey="vite-ui-theme">
+        <MainLayout>
+          <Routes>
+            <Route path="/cards" element={<CardsList />} />
+            <Route path="/" element={<Home />} />
+            <Route path="/cardslist" element={<CardDirectory />} />
+            <Route path="/cards/:id" element={<CardDetail />} />
+            <Route path="/about" element={<About />} />
+            <Route path="*" element={<ErrorPage />} />
+          </Routes>
+        </MainLayout>
+      </ThemeProvider>
+    </Router>
   );
 };
 

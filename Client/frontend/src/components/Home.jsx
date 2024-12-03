@@ -125,6 +125,10 @@ export const Home = () => {
                   src={`/cards/${card.card}.webp`}
                   alt={`Pokemon card ${index}`}
                   className="rounded-lg shadow-lg"
+                  max-width="160px"
+                  max-height="280px"
+                  width={160}
+                  height={280}
                 />
               </div>
             ))}

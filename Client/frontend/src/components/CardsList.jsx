@@ -139,7 +139,7 @@ export default function CardsList() {
         console.error("Error fetching cards:", error);
       } finally {
         const elapsedTime = Date.now() - startTime;
-        const remainingTime = Math.max(3000 - elapsedTime, 0);
+        const remainingTime = Math.max(2000 - elapsedTime, 0);
 
         if (process.env.NODE_ENV === "development") {
           setLoading(false);
@@ -155,7 +155,7 @@ export default function CardsList() {
   return (
     <div className="w-full">
       {loading ? (
-        <div className="w-[80vw] h-full justify-center flex">
+        <div className="w-full h-full justify-center flex">
           <DotLottieReact
             src="https://lottie.host/155d8ab9-7384-48ca-88a5-72fdd415563e/4Wq5eqTFyr.lottie"
             loop

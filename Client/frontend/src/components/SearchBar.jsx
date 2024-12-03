@@ -46,10 +46,10 @@ export default function SearchBar({ commands = CARDS.default }) {
                 <CommandItem
                   key={command.id}
                   value={command.name}
-                  className="hover:bg-primary-foreground hover:text-primary-background bg-background"
+                  className="bg-background"
                 >
-                  <div className="flex flex-col w-full">
-                    <a href={`cards/${command.id}`}>
+                  <div className="flex flex-col w-full hover:bg-primary-foreground hover:text-primary-background  ">
+                    <a href={`/cards/${command.id}`}>
                       <p className="font-semibold">{command.name}</p>
                       <div className="flex w-full justify-between">
                         <p>

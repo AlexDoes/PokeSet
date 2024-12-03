@@ -42,13 +42,15 @@ export default function CardDirectory() {
       </div>
       <div className="m-auto h-full justify-self-center rounded-xl border p-2">
         <Table>
-          <TableCaption>A list of your recent invoices.</TableCaption>
+          <TableCaption>
+            A list of all the cards available in Pokemon TCG Pocket
+          </TableCaption>
           <TableHeader>
             <TableRow>
               <TableHead className="w-48">Card name</TableHead>
               <TableHead className="w-32">ID</TableHead>
-              <TableHead className="w-32">Type</TableHead>
-              <TableHead className="w-32 text-right">Attribute</TableHead>
+              <TableHead className="w-32">Card Typing</TableHead>
+              <TableHead className="w-32 text-right">Type</TableHead>
             </TableRow>
           </TableHeader>
           <TableBody>
@@ -79,7 +81,11 @@ export default function CardDirectory() {
                       {card.name}
                     </TableCell>
                     <TableCell className="w-32">{formatId(card.id)}</TableCell>
-                    <TableCell className="w-32">{card.type}</TableCell>
+                    <TableCell className="w-32">
+                      {card.type === "Supporter"
+                        ? "Supporter - Trainer"
+                        : card.type}
+                    </TableCell>
                     <TableCell className="w-32 text-right">
                       {card.attribute}
                     </TableCell>
