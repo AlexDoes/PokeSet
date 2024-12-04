@@ -12,7 +12,7 @@ import {
   CommandSeparator,
   CommandShortcut,
 } from "@/components/ui/command";
-import SearchBar from "@/components/Searchbar";
+import SearchBar from "@/components/SearchBar";
 import * as CARDS from "@/lib/cards.json";
 
 const MainLayout = ({ children }) => {

@@ -5,6 +5,7 @@ import { useParams } from "react-router-dom";
 import { Table, TableBody, TableCell, TableRow } from "@/components/ui/table";
 import { ChevronRight, ChevronLeft } from "lucide-react";
 import * as CARDS from "@/lib/cards";
+import { Link } from "react-router-dom";
 const rarityMap = {
   Common: 1,
   Uncommon: 2,
@@ -39,7 +40,7 @@ const getRarityImages = (rarity) => {
     return Array.from({ length: rarityValue }, (_, index) => (
       <img
         key={`diamond-${index}`}
-        src="/cards/rarity-diamond.webp"
+        src="/card-assets/rarity-diamond.webp"
         alt={rarity}
         width="10"
         height="10"
@@ -55,7 +56,7 @@ const getRarityImages = (rarity) => {
     return Array.from({ length: rarityValue }, (_, index) => (
       <img
         key={`star-${index}`}
-        src="/cards/rarity-star.webp"
+        src="/card-assets/rarity-star.webp"
         alt="Star Rarity"
         width="20"
         height="20"
@@ -66,7 +67,7 @@ const getRarityImages = (rarity) => {
     return Array.from({ length: rarityValue }, (_, index) => (
       <img
         key={`crown-${index}`}
-        src="/cards/rarity-crown.webp"
+        src="/card-assets/rarity-crown.webp"
         alt="Crown Rarity"
         width="20"
         height="20"
@@ -80,7 +81,7 @@ const getAttributeImages = (attribute) => {
   if (!attribute) return "";
   if (attribute === "No Color") return "";
   attribute = attribute.toLowerCase();
-  const imgsrc = "/cards/type-" + attribute + ".webp";
+  const imgsrc = "/card-assets/type-" + attribute + ".webp";
   return <img src={imgsrc} alt="Attribute" width="20" height="20" />;
 };
 
@@ -89,7 +90,7 @@ const getRetreatImages = (retreat) => {
   return Array.from({ length: retreat }, (_, index) => (
     <img
       key={`retreat-${index}`}
-      src="/cards/type-colorless.webp"
+      src="/card-assets/type-colorless.webp"
       alt={retreat + "cost"}
       width="20"
       height="20"
@@ -118,8 +119,10 @@ export default function CardDetail() {
     let [set, number] = id.split("-");
     number = parseInt(number);
     console.log(set, number);
-    if (number < 226 && set === "A1") {
+    if (number < 286 && set === "A1") {
       number++;
+    } else if (number === 7 && set === "PROMO") {
+      number += 2;
     } else if (number < 24 && set === "PROMO") {
       number++;
     } else if (number === 24 && set === "PROMO") {
@@ -137,13 +140,15 @@ export default function CardDetail() {
     number = parseInt(number);
     if (number > 1 && set === "A1") {
       number--;
+    } else if (number === 9 && set === "PROMO") {
+      number -= 2;
     } else if (number > 1 && set === "PROMO") {
       number--;
     } else if (number === 1 && set === "A1") {
       set = "PROMO";
       number = 24;
     } else {
-      number = 226;
+      number = 286;
       set = "A1";
     }
     return `${set}-${String(number).padStart(3, "0")}`;
@@ -195,6 +200,19 @@ export default function CardDetail() {
           {(!card?.attacks || card.attacks.length === 0) && (
             <li className="text-sm">{card?.description}</li>
           )}
+          {card?.description &&
+            card.attacks &&
+            card?.description.includes(":") &&
+            card?.description.split(":").map((text, index) => (
+              <li
+                key={index}
+                className={`${index === 0 ? "font-semibold" : ""} ${
+                  index === 1 ? "mb-2" : ""
+                } `}
+              >
+                {index === 0 && "Ability:"} {text}
+              </li>
+            ))}
           {card?.attacks?.map((attack) => (
             <li key={attack.name} className="mb-2 last:mb-0">
               <div className="flex w-full flex-col gap-1">
@@ -223,15 +241,14 @@ export default function CardDetail() {
       acc[card.id] = card;
       return acc;
     }, {});
-    console.log(cardsList["A1-001"]);
     const next = getNextCard(id);
     const prev = getPrevCard(id);
     return (
       <div className="flex justify-between items-center">
         {id !== "A1-001" ? (
-          <a
+          <Link
             className="flex gap-2 group hover:text-blue-500 items-center pr-2 border-r-2"
-            href={`/cards/${prev}`}
+            to={`/cards/${prev}`}
           >
             <div>
               <ChevronLeft></ChevronLeft>
@@ -240,13 +257,13 @@ export default function CardDetail() {
               <div>{prev}</div>
               <div> {cardsList[prev].name} </div>
             </div>
-          </a>
+          </Link>
         ) : (
           <div></div>
         )}
-        <a
+        <Link
           className="flex gap-2 hover:text-blue-500 items-center group border-l-2 pl-2"
-          href={`/cards/${next}`}
+          to={`/cards/${next}`}
         >
           <div className="flex flex-col text-muted-foreground group-hover:text-blue-500">
             <div>{next}</div>
@@ -255,7 +272,7 @@ export default function CardDetail() {
           <div>
             <ChevronRight />
           </div>
-        </a>
+        </Link>
       </div>
     );
   };
@@ -269,7 +286,7 @@ export default function CardDetail() {
     <div className="w-full h-[calc(100vh-48px)]">
       <div className="flex h-full">
         <img
-          src={`/cards/${id.toLowerCase()}.webp`}
+          src={`/card-assets/${id.toLowerCase()}.webp`}
           loading="lazy"
           alt="Card"
           className="max-w-[600px] max-h-[500px]"

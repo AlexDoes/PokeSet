@@ -1,8 +1,10 @@
 import React, { useState, useEffect } from "react";
+import { Link, useNavigate } from "react-router-dom";
+import Particles from "./ui/particles";
 
 export const Home = () => {
   const [shimmerIndex, setShimmerIndex] = useState(null);
-
+  const navigate = useNavigate();
   const bottomCards = [
     { rotate: -20, translate: 120, tilt: 8, card: "a1-123" },
     { rotate: -16, translate: 60, tilt: 6, card: "a1-080" },
@@ -26,59 +28,63 @@ export const Home = () => {
 
   return (
     <div className="overflow-clip h-[calc(100vh-50px)] w-full relative">
+      <Particles
+        className="absolute h-fit w-full"
+        staticity={50}
+        quantity={125}
+      />
       <div className="max-w-7xl mx-auto border-red-300 flex flex-col h-full">
         {/* Top row with cards */}
         <div className="relative h-1/3">
           <div className="absolute left-8 transform top-32 scale-[.9]">
-            <a className="" href="/cards/a1-234">
+            <Link className="" to="/cards/a1-234">
               <img
-                src="/cards/a1-234.webp"
+                src="/card-assets/a1-234.webp"
                 alt="Pokemon card"
                 className="rounded-lg shadow-xl"
                 width="160px"
                 height="280px"
-              />
-            </a>
+              ></img>
+            </Link>
           </div>
           <div className="absolute left-[20%] transform top-8 scale-[1.1]">
-            <a className="" href="/cards/a1-281">
+            <Link className="" to="/cards/a1-281">
               <img
-                src="/cards/a1-281.webp"
+                src="/card-assets/a1-281.webp"
                 alt="Pokemon card"
                 className="rounded-lg shadow-xl"
                 width="160px"
                 height="280px"
               />
-            </a>
+            </Link>
           </div>
           <div className="absolute right-[20%] transform top-8 scale-[1.1]">
-            <a className="" href="/cards/a1-258">
+            <Link className="" to="/cards/a1-258">
               <img
-                src="/cards/a1-258.webp"
+                src="/card-assets/a1-258.webp"
                 alt="Pokemon card"
                 className="rounded-lg shadow-xl"
                 width="160px"
                 height="280px"
               />
-            </a>
+            </Link>
           </div>
           <div className="absolute right-8 transform top-32 scale-[.9]">
-            <a className="" href="/cards/a1-283">
+            <Link className="" to="/cards/a1-283">
               <img
-                src="/cards/a1-283.webp"
+                src="/card-assets/a1-283.webp"
                 alt="Pokemon card"
                 className="rounded-lg shadow-xl"
                 width="160px"
                 height="280px"
               />
-            </a>
+            </Link>
           </div>
         </div>
         {/* Middle Text */}
-        <div className="text-center justify-self-center">
+        <div className="text-center justify-self-center w-full h-fit">
           <div
             className="text-6xl font-bold text-yellow-300 mb-8 specialtext"
-            // style={{ textShadow: "2px 2px 4px rgba(3, 138, 255)" }}
             style={{
               textShadow:
                 "-3px -3px 0 rgba(3, 138, 255), 3px -3px 0 rgba(3, 138, 255), -3px 3px 0 rgba(3, 138, 255), 3px 3px 0 rgba(3, 138, 255)",
@@ -86,14 +92,14 @@ export const Home = () => {
           >
             PokéSet
           </div>
-          <a
-            href="/cards"
-            className="bg-red-600 text-white py-3 px-8 rounded-lg inline-block mb-4 shadow-lg"
+          <Link
+            to="/cards"
+            className="bg-red-600 text-white py-3 px-8 rounded-lg inline-block mb-4 shadow-lg relative"
           >
             <span className="text-2xl font-semibold tracking-wider">
               PTCG Pocket Encyclopedia
             </span>
-          </a>
+          </Link>
           <h2 className="text-5xl text-gray-700 mt-4 font-semibold"></h2>
         </div>
 
@@ -109,27 +115,33 @@ export const Home = () => {
                   transformStyle: "preserve-3d",
                   transition: "transform 0.3s ease",
                   position: "relative",
+                  cursor: "pointer",
                 }}
+                onClick={() => navigate(`/cards/${card.card}`)}
               >
                 <div
                   className={`absolute inset-0 bg-gradient-to-r from-transparent via-white to-transparent opacity-0 rounded-lg
                       ${shimmerIndex === index ? "animate-shimmer" : ""}`}
                   style={{
-                    backgroundSize: "100% 200%",
+                    backgroundSize: "100% 100%",
                     mixBlendMode: "overlay",
                   }}
+                ></div>
+                <Link
+                  key={index}
+                  to={`/cards/${card.card}`}
+                  className="bg-white"
                 >
-                  {" "}
-                </div>
-                <img
-                  src={`/cards/${card.card}.webp`}
-                  alt={`Pokemon card ${index}`}
-                  className="rounded-lg shadow-lg"
-                  max-width="160px"
-                  max-height="280px"
-                  width={160}
-                  height={280}
-                />
+                  <img
+                    src={`/card-assets/${card.card}.webp`}
+                    alt={`Pokemon card ${index}`}
+                    className="rounded-lg shadow-lg"
+                    max-width="160px"
+                    max-height="280px"
+                    width={160}
+                    height={280}
+                  />
+                </Link>
               </div>
             ))}
           </div>
@@ -142,14 +154,14 @@ export const Home = () => {
         @keyframes shimmer {
           0% {
             opacity: 0;
-            transform: translateX(-100%);
+            transform: translateX(-25%);
           }
           50% {
-            opacity: 0.5;
+            opacity: 0.9;
           }
           100% {
             opacity: 0;
-            transform: translateX(100%);
+            transform: translateX(25%);
           }
         }
         .animate-shimmer {

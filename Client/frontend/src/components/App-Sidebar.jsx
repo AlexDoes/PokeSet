@@ -8,7 +8,7 @@ import {
   Settings,
   WalletCards,
 } from "lucide-react";
-
+import { Link } from "react-router-dom";
 import {
   Sidebar,
   SidebarContent,
@@ -57,7 +57,7 @@ export function AppSidebar() {
     <Sidebar className="z-20">
       <SidebarContent className="">
         <SidebarGroup className="">
-          <a href="/">
+          <Link to="/">
             <SidebarGroupLabel className="text-yellow-200 text-2xl my-auto border-yellow-100 gap-1 off mb-2 w-full">
               PokéSet
               <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 22 20">
@@ -101,18 +101,18 @@ export function AppSidebar() {
                 />
               </svg>
             </SidebarGroupLabel>
-          </a>
+          </Link>
           <SidebarGroupContent className="border-t">
             <SidebarMenu>
               {items.map((item) => (
                 <SidebarMenuItem key={item.title}>
                   <SidebarMenuButton asChild>
-                    <a href={item.url} className="text-muted-foreground">
+                    <Link to={item.url} className="text-muted-foreground">
                       <item.icon strokeWidth={0.75} />
-                      <span className="font-base text-muted-foreground">
+                      <span className="text-muted-foreground">
                         {item.title}
                       </span>
-                    </a>
+                    </Link>
                   </SidebarMenuButton>
                 </SidebarMenuItem>
               ))}

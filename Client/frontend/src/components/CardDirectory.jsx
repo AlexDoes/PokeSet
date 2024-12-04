@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import { CardService } from "../services/CardsService.js";
 import { DotLottieReact } from "@lottiefiles/dotlottie-react";
 import { Skeleton } from "@/components/ui/skeleton";
+import { Link, useNavigate } from "react-router-dom";
 import {
   Table,
   TableBody,
@@ -11,11 +12,12 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
+import { BorderBeam } from "./ui/border-beam.jsx";
 
 export default function CardDirectory() {
   const [cards, setCards] = useState([]);
   const [loading, setLoading] = useState(true);
-
+  const navigate = useNavigate();
   const formatId = (id) => {
     if (id.startsWith("PROMO")) {
       return id.slice(0, 1) + id.slice(id.indexOf("-"));
@@ -40,7 +42,10 @@ export default function CardDirectory() {
       <div className="text-xl text-muted-foreground">
         All cards available on Pokemon TCG Pocket
       </div>
-      <div className="m-auto h-full justify-self-center rounded-xl border p-2">
+      <div className="m-auto h-full justify-self-center rounded-xl border p-2 relative">
+        {!loading && (
+          <BorderBeam duration={300} colorTo="#ADD8E6" colorFrom="#5ced73" />
+        )}
         <Table>
           <TableCaption>
             A list of all the cards available in Pokemon TCG Pocket
@@ -74,13 +79,17 @@ export default function CardDirectory() {
               : cards.map((card) => (
                   <TableRow
                     key={card.id}
-                    onClick={() => (window.location.href = `/cards/${card.id}`)}
+                    onClick={() => navigate(`/cards/${card.id}`)}
                     className="cursor-pointer group"
                   >
-                    <TableCell className="w-48 group-hover:text-blue-400">
+                    <TableCell className="w-48 group-hover:text-blue-400 cursor-pointer">
                       {card.name}
                     </TableCell>
-                    <TableCell className="w-32">{formatId(card.id)}</TableCell>
+
+                    <TableCell className="w-32">
+                      {" "}
+                      {formatId(card.id)}{" "}
+                    </TableCell>
                     <TableCell className="w-32">
                       {card.type === "Supporter"
                         ? "Supporter - Trainer"

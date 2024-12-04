@@ -8,7 +8,7 @@ import {
 } from "@/components/ui/command";
 import { useState } from "react";
 import * as CARDS from "@/lib/cards.json";
-
+import { useNavigate, Link } from "react-router-dom";
 export default function SearchBar({ commands = CARDS.default }) {
   const [value, setValue] = useState("");
 
@@ -20,10 +20,13 @@ export default function SearchBar({ commands = CARDS.default }) {
         .slice(0, 10)
     : [];
 
+  const navigate = useNavigate();
+
   const handleKeyDown = (e) => {
     if (e.key === "Enter" && filteredCommands.length > 0) {
       const firstCommand = filteredCommands[0];
-      window.location.href = `/cards/${firstCommand.id}`;
+      navigate(`/cards/${firstCommand.id}`);
+      setValue("");
     }
   };
 
@@ -48,8 +51,11 @@ export default function SearchBar({ commands = CARDS.default }) {
                   value={command.name}
                   className="bg-background"
                 >
-                  <div className="flex flex-col w-full hover:bg-primary-foreground hover:text-primary-background  ">
-                    <a href={`/cards/${command.id}`}>
+                  <div
+                    className="flex flex-col w-full hover:bg-primary-foreground hover:text-primary-background"
+                    onClick={() => setValue("")}
+                  >
+                    <Link to={`/cards/${command.id}`}>
                       <p className="font-semibold">{command.name}</p>
                       <div className="flex w-full justify-between">
                         <p>
@@ -60,7 +66,7 @@ export default function SearchBar({ commands = CARDS.default }) {
                           Set: {command.set}
                         </p>
                       </div>
-                    </a>
+                    </Link>
                   </div>
                 </CommandItem>
               ))

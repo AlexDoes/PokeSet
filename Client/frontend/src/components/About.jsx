@@ -13,6 +13,7 @@ import {
   ImageIcon,
   EnvelopeClosedIcon,
 } from "@radix-ui/react-icons";
+import { Link } from "react-router-dom";
 
 import { BentoCard, BentoGrid } from "@/components/ui/bento-grid";
 

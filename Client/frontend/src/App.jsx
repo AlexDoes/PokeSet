@@ -37,8 +37,8 @@ const AppContent = () => {
     <ThemeProvider defaultTheme="dark" storageKey="vite-ui-theme">
       <MainLayout>
         <Routes>
-          <Route path="/cards" element={<CardsList />} />
           <Route path="/" element={<Home />} />
+          <Route path="/cards" element={<CardsList />} />
           <Route path="/cardslist" element={<CardDirectory />} />
           <Route path="/cards/:id" element={<CardDetail />} />
           <Route path="/about" element={<About />} />
@@ -55,8 +55,8 @@ const App = () => {
       <ThemeProvider defaultTheme="dark" storageKey="vite-ui-theme">
         <MainLayout>
           <Routes>
-            <Route path="/cards" element={<CardsList />} />
             <Route path="/" element={<Home />} />
+            <Route path="/cards" element={<CardsList />} />
             <Route path="/cardslist" element={<CardDirectory />} />
             <Route path="/cards/:id" element={<CardDetail />} />
             <Route path="/about" element={<About />} />
