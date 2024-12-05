@@ -42,9 +42,9 @@ public class SecurityConfig {
                 .csrf(csrf -> csrf.disable())
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .authorizeHttpRequests(auth -> auth
-                        .requestMatchers("/api/auth/signup", "/api/auth/login").permitAll()
-                        .requestMatchers("/api/cards/**").permitAll()
-                        .requestMatchers("/api/v1/cards/**").permitAll()
+                        .requestMatchers("/api/auth/signup", "/api/auth/login", "/api/cards/**", "/api/v1/cards/**",
+                                "/**")
+                        .permitAll()
                         .anyRequest().authenticated())
                 .addFilterBefore((Filter) jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class);
 
@@ -62,13 +62,15 @@ public class SecurityConfig {
                 "Content-Type",
                 "Accept",
                 "Origin",
+                "Access-Control-Request-Method",
+                "Access-Control-Request-Headers",
                 "X-Requested-With"));
         configuration.setExposedHeaders(Arrays.asList("Authorization"));
         configuration.setAllowCredentials(true);
         configuration.setMaxAge(3600L);
 
         UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
-        source.registerCorsConfiguration("/api/**", configuration);
+        source.registerCorsConfiguration("/**", configuration);
         return source;
     }
 
