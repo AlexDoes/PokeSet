@@ -118,7 +118,6 @@ export default function CardDetail() {
   const getNextCard = (id) => {
     let [set, number] = id.split("-");
     number = parseInt(number);
-    console.log(set, number);
     if (number < 286 && set === "A1") {
       number++;
     } else if (number === 7 && set === "PROMO") {
