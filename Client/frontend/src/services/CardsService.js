@@ -1,4 +1,7 @@
-const API_BASE_URL = "http://localhost:8080/api/v1";
+const API_BASE_URL = import.meta.env.PROD
+  ? "/api/v1"
+  : "http://localhost:8080/api/v1";
+
 import axios from "axios";
 
 export class CardService {
