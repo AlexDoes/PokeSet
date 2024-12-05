@@ -3,6 +3,7 @@ logging:
     com.group.pokeset: DEBUG
     org.springframework.data.mongodb: DEBUG
     org.mongodb.driver: DEBUG
+    org.springframework.web: DEBUG
 
 spring:
   data:
