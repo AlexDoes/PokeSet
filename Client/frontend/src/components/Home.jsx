@@ -147,31 +147,6 @@ export const Home = () => {
           </div>
         </div>
       </div>
-
-      {/* Add reflective surface effect */}
-      <div className="absolute bottom-0 right-0 h-32 bg-gradient-to-t from-white to-transparent opacity-20 w-full z-10" />
-      <style jsx global>{`
-        @keyframes shimmer {
-          0% {
-            opacity: 0;
-            transform: translateX(-25%);
-          }
-          50% {
-            opacity: 0.9;
-          }
-          100% {
-            opacity: 0;
-            transform: translateX(25%);
-          }
-        }
-        .animate-shimmer {
-          animation: shimmer 2s ease-in-out;
-        }
-        .specialtext {
-          text-shadow: -1px -1px 0 black, 1px -1px 0 black, -1px 1px 0 black,
-            1px 1px 0 black;
-        }
-      `}</style>
     </div>
   );
 };

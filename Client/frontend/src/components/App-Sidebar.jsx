@@ -8,7 +8,7 @@ import {
   Settings,
   WalletCards,
 } from "lucide-react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import {
   Sidebar,
   SidebarContent,
@@ -20,7 +20,7 @@ import {
   SidebarMenuItem,
 } from "@/components/ui/sidebar";
 import { QuestionMarkCircledIcon } from "@radix-ui/react-icons";
-
+import { Navigate } from "react-router-dom";
 const items = [
   {
     title: "Home",
@@ -39,10 +39,7 @@ const items = [
   },
   {
     title: "Random Card",
-    url: `/cards/A1-${String(Math.floor(Math.random() * 226)).padStart(
-      3,
-      "0"
-    )}`,
+    url: `/random-card`,
     icon: FileQuestion,
   },
   {
@@ -53,6 +50,13 @@ const items = [
 ];
 
 export function AppSidebar() {
+  const getRandomCard = () => {
+    return `/cards/A1-${String(Math.floor(Math.random() * 226)).padStart(
+      3,
+      "0"
+    )}`;
+  };
+
   return (
     <Sidebar className="z-20">
       <SidebarContent className="">

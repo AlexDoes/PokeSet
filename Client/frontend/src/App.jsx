@@ -18,6 +18,7 @@ import CardDetail from "./components/CardDetail";
 import { GetAllCardsSimple } from "./components/GetAllCardsSimple";
 import ErrorPage from "./components/ErrorPage";
 import About from "./components/About";
+import RandomCard from "./components/RandomCard";
 
 const PrivateRoute = ({ children }) => {
   const { user, token } = useAuth();
@@ -42,6 +43,7 @@ const AppContent = () => {
           <Route path="/cardslist" element={<CardDirectory />} />
           <Route path="/cards/:id" element={<CardDetail />} />
           <Route path="/about" element={<About />} />
+          <Route path="/random-card" element={<RandomCard />} />
           <Route path="*" element={<ErrorPage />} />
         </Routes>
       </MainLayout>
@@ -60,6 +62,7 @@ const App = () => {
             <Route path="/cardslist" element={<CardDirectory />} />
             <Route path="/cards/:id" element={<CardDetail />} />
             <Route path="/about" element={<About />} />
+            <Route path="/random-card" element={<RandomCard />} />
             <Route path="*" element={<ErrorPage />} />
           </Routes>
         </MainLayout>
