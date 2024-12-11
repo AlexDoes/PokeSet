@@ -13,12 +13,14 @@ import { Register } from "./components/Register";
 import { Dashboard } from "./components/Dashboard";
 import CardsList from "./components/CardsList";
 import { Home } from "./components/Home";
-import CardDirectory from "./components/CardDirectory";
+// import CardDirectory from "./components/CardDirectory";
 import CardDetail from "./components/CardDetail";
 import { GetAllCardsSimple } from "./components/GetAllCardsSimple";
 import ErrorPage from "./components/ErrorPage";
 import About from "./components/About";
 import RandomCard from "./components/RandomCard";
+import DemoPage from "@/components/table/page";
+import CardDirectory from "@/components/table/page";
 
 const PrivateRoute = ({ children }) => {
   const { user, token } = useAuth();
@@ -64,6 +66,7 @@ const App = () => {
             <Route path="/about" element={<About />} />
             <Route path="/random-card" element={<RandomCard />} />
             <Route path="*" element={<ErrorPage />} />
+            <Route path="/beta" element={<DemoPage />} />
           </Routes>
         </MainLayout>
       </ThemeProvider>

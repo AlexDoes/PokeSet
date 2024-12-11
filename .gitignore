@@ -76,3 +76,5 @@ Thumbs.db
 logs
 *.log
 Ignore.README.md
+
+dev.sh

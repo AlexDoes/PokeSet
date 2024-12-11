@@ -166,7 +166,7 @@ export default function CardsList() {
       ) : (
         <div className="grid grid-cols-2 xl:grid-cols-3 gap-3 text-sm p-4 2xl:text-xl">
           {cards.map((card) => (
-            <MagicCard>
+            <MagicCard key={card.id}>
               <div
                 className="border-2 rounded-xl p-2 grid grid-cols-2 items-center w-full h-full"
                 key={card.id}
